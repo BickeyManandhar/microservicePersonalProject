@@ -8,7 +8,7 @@ public class AccountsMapper {
     public static AccountsDto convertEntityToDto(Accounts accountsEntity, AccountsDto accountsDto){
         accountsDto.setAccountNumber(accountsEntity.getAccountNumber());
         accountsDto.setAccountType(accountsEntity.getAccountType());
-        accountsDto.setAccountType(accountsEntity.getAccountType());
+        accountsDto.setBranchAddress(accountsEntity.getBranchAddress());
         return accountsDto;
     }
 

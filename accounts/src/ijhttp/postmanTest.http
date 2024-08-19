@@ -1,0 +1,31 @@
+
+### POST request to create
+POST {{host}}/api/v1/create
+Content-Type: application/json
+
+{
+    "name": "Bablu",
+    "email":"Bablu@gmail.com",
+    "mobileNumber": "21439344843"
+}
+
+> {%
+client.test("Response is OK", function() {
+    client.assert(response.status === 201, "Expected status code 201 but received "+response.status);
+    client.assert(response.body.statusMessage==="Account created successfully", "Expected: Account created successfully");
+});
+%}
+
+### GET request to get customer and account information
+@mobileNumber= 21439344843
+GET {{host}}/api/v1/getAccountAndCustomer?mobileNumber={{mobileNumber}}
+Content-Type: application/json
+
+
+> {%
+    client.test("Response is OK", function() {
+        let mobileNumber =
+        client.assert(response.status === 200, "Expected status code 200 but received "+response.status);
+        client.assert(response.body.mobileNumber, "Expected mobileNumber filed to exist");
+    });
+%}

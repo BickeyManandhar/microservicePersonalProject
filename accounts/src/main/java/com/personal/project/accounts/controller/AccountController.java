@@ -1,6 +1,7 @@
 package com.personal.project.accounts.controller;
 
 import com.personal.project.accounts.constants.AccountsConstants;
+import com.personal.project.accounts.dto.CustomerAndAccountDto;
 import com.personal.project.accounts.dto.CustomerDto;
 import com.personal.project.accounts.dto.ResponseDto;
 import com.personal.project.accounts.service.IAccountService;
@@ -8,10 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path="/api/v1", produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -26,6 +24,14 @@ public class AccountController {
         return ResponseEntity
                 .status(HttpStatus.CREATED) //this goes to header
                 .body(new ResponseDto(AccountsConstants.STATUS_201,AccountsConstants.MESSAGE_201)); //this goes to body
+    }
+
+    @GetMapping("/getAccountAndCustomer")
+    public ResponseEntity<CustomerAndAccountDto> getAccountByMobileNumber(@RequestParam String mobileNumber){
+        CustomerAndAccountDto customerAndAccountDto=accountService.getAccountByMobileNumber(mobileNumber);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(customerAndAccountDto);
     }
 
 }
