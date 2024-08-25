@@ -23,14 +23,14 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponseDto, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(CustomerDoesNotExistException.class)
-    public ResponseEntity<ErrorResponseDto> handleCustomerDoesNotExistException(CustomerDoesNotExistException customerDoesNotExistException, WebRequest webRequest) {
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ErrorResponseDto> handleResourseNotFoundException(ResourceNotFoundException resourceNotFoundException, WebRequest webRequest) {
         ErrorResponseDto errorResponseDto = new ErrorResponseDto(
                 webRequest.getDescription(false), //choosing not to include client info like IP address
-                HttpStatus.BAD_REQUEST,
-                customerDoesNotExistException.getMessage(),
+                HttpStatus.NOT_FOUND,
+                resourceNotFoundException.getMessage(),
                 LocalDateTime.now()
         );
-        return new ResponseEntity<>(errorResponseDto, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.NOT_FOUND);
     }
 }

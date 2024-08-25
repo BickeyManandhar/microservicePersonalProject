@@ -12,4 +12,6 @@ public class CustomerDto extends BaseEntity {
 
     private String mobileNumber;
 
+    private AccountsDto accountsDto;
+
 }

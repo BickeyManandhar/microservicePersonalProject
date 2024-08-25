@@ -26,12 +26,12 @@ public class AccountController {
                 .body(new ResponseDto(AccountsConstants.STATUS_201,AccountsConstants.MESSAGE_201)); //this goes to body
     }
 
-    @GetMapping("/getAccountAndCustomer")
-    public ResponseEntity<CustomerAndAccountDto> getAccountByMobileNumber(@RequestParam String mobileNumber){
-        CustomerAndAccountDto customerAndAccountDto=accountService.getAccountByMobileNumber(mobileNumber);
+    @GetMapping("/fetch")
+    public ResponseEntity<CustomerDto> getAccountByMobileNumber(@RequestParam String mobileNumber){
+        CustomerDto customerDto=accountService.getAccountByMobileNumber(mobileNumber);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(customerAndAccountDto);
+                .body(customerDto);
     }
 
 }

@@ -10,5 +10,5 @@ public interface IAccountService {
      */
     void createAccount(CustomerDto customerDto);
 
-    CustomerAndAccountDto getAccountByMobileNumber(String mobileNumber);
+    CustomerDto getAccountByMobileNumber(String mobileNumber);
 }

@@ -7,7 +7,7 @@ import com.personal.project.accounts.dto.CustomerDto;
 import com.personal.project.accounts.entity.Accounts;
 import com.personal.project.accounts.entity.Customer;
 import com.personal.project.accounts.exception.CustomerAlreadyExistException;
-import com.personal.project.accounts.exception.CustomerDoesNotExistException;
+import com.personal.project.accounts.exception.ResourceNotFoundException;
 import com.personal.project.accounts.mapper.AccountsMapper;
 import com.personal.project.accounts.mapper.CustomerMapper;
 import com.personal.project.accounts.repository.AccountsRepository;
@@ -50,23 +50,35 @@ public class AccountServiceImpl implements IAccountService {
      * @return
      */
     @Override
-    public CustomerAndAccountDto getAccountByMobileNumber(String mobileNumber) {
-        Optional<Customer> optionalCustomer=customerRepository.findByMobileNumber(mobileNumber);
-        if(optionalCustomer.isEmpty()){
-            throw new CustomerDoesNotExistException("No Customer is registered with this mobile number : "+mobileNumber);
-        }else{
-            Optional<Accounts> optionalAccount=accountsRepository.findByCustomerId(optionalCustomer.get().getCustomerId());
-            CustomerDto customerDto = CustomerMapper.convertEntityToDto(optionalCustomer.get(),new CustomerDto());
-            AccountsDto accountDto = AccountsMapper.convertEntityToDto(optionalAccount.get(),new AccountsDto());
-            CustomerAndAccountDto customerAndAccountDto = new CustomerAndAccountDto();
-            customerAndAccountDto.setAccountNumber(accountDto.getAccountNumber());
-            customerAndAccountDto.setAccountType(accountDto.getAccountType());
-            customerAndAccountDto.setBranchAddress(accountDto.getBranchAddress());
-            customerAndAccountDto.setName(customerDto.getName());
-            customerAndAccountDto.setMobileNumber(mobileNumber);
-            customerAndAccountDto.setEmail(customerDto.getEmail());
-            return customerAndAccountDto;
-        }
+    public CustomerDto getAccountByMobileNumber(String mobileNumber) {
+        //old way
+//        Optional<Customer> optionalCustomer=customerRepository.findByMobileNumber(mobileNumber);
+//        if(optionalCustomer.isEmpty()){
+//            throw new ResourceNotFoundException("Customer","mobileNumber",mobileNumber);
+//        }else{
+//            Optional<Accounts> optionalAccount=accountsRepository.findByCustomerId(optionalCustomer.get().getCustomerId());
+//            CustomerDto customerDto = CustomerMapper.convertEntityToDto(optionalCustomer.get(),new CustomerDto());
+//            AccountsDto accountDto = AccountsMapper.convertEntityToDto(optionalAccount.get(),new AccountsDto());
+//            CustomerAndAccountDto customerAndAccountDto = new CustomerAndAccountDto();
+//            customerAndAccountDto.setAccountNumber(accountDto.getAccountNumber());
+//            customerAndAccountDto.setAccountType(accountDto.getAccountType());
+//            customerAndAccountDto.setBranchAddress(accountDto.getBranchAddress());
+//            customerAndAccountDto.setName(customerDto.getName());
+//            customerAndAccountDto.setMobileNumber(mobileNumber);
+//            customerAndAccountDto.setEmail(customerDto.getEmail());
+//            return customerAndAccountDto;
+//        }
+        //new way
+        Customer customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(
+                ()->new ResourceNotFoundException("Customer","mobileNumber",mobileNumber)
+        );
+        Accounts account = accountsRepository.findByCustomerId(customer.getCustomerId()).orElseThrow(
+                ()-> new ResourceNotFoundException("Account","customerId",customer.getCustomerId().toString())
+        );
+        CustomerDto customerDto = CustomerMapper.convertEntityToDto(customer, new CustomerDto());
+        AccountsDto accountsDto = AccountsMapper.convertEntityToDto(account, new AccountsDto());
+        customerDto.setAccountsDto(accountsDto);
+        return customerDto;
     }
 
     /***
