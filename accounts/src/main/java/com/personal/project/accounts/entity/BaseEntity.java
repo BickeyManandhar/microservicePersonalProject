@@ -17,7 +17,7 @@ public class BaseEntity {
     @Column(updatable = false) //to make createdAt not updatable
     private LocalDateTime createdAt;
 
-    @Column(insertable = false) //to not insert any value at the begining
+    @Column(insertable = false) //to not insert any value at the beginning
     private LocalDateTime updatedAt;
 
     @Column(updatable = false) //to make createdBy not updatable

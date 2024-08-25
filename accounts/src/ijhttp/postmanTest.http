@@ -6,7 +6,7 @@ Content-Type: application/json
 {
     "name": "Bablu",
     "email":"Bablu@gmail.com",
-    "mobileNumber": "21439344843"
+    "mobileNumber": "14334333443"
 }
 
 > {%
@@ -17,8 +17,8 @@ client.test("Response is OK", function() {
 %}
 
 ### GET request to get customer and account information
-@mobileNumber= 21439344843
-GET {{host}}/api/v1/getAccountAndCustomer?mobileNumber={{mobileNumber}}
+@mobileNumber= 1
+GET {{host}}/api/v1/fetch?mobileNumber={{mobileNumber}}
 Content-Type: application/json
 
 
@@ -29,3 +29,18 @@ Content-Type: application/json
         client.assert(response.body.mobileNumber, "Expected mobileNumber filed to exist");
     });
 %}
+
+### PUT request to update
+PUT {{host}}/api/v1/update
+Content-Type: application/json
+
+{
+  "name": "Babu",
+  "email": "Babu@gmail.com",
+  "mobileNumber": "1",
+  "accountsDto": {
+    "accountNumber": 1513045938,
+    "accountType": "Checking",
+    "branchAddress": "Ohio"
+  }
+}

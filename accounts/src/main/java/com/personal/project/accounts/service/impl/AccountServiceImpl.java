@@ -4,6 +4,7 @@ import com.personal.project.accounts.constants.AccountsConstants;
 import com.personal.project.accounts.dto.AccountsDto;
 import com.personal.project.accounts.dto.CustomerAndAccountDto;
 import com.personal.project.accounts.dto.CustomerDto;
+import com.personal.project.accounts.dto.ResponseDto;
 import com.personal.project.accounts.entity.Accounts;
 import com.personal.project.accounts.entity.Customer;
 import com.personal.project.accounts.exception.CustomerAlreadyExistException;
@@ -79,6 +80,30 @@ public class AccountServiceImpl implements IAccountService {
         AccountsDto accountsDto = AccountsMapper.convertEntityToDto(account, new AccountsDto());
         customerDto.setAccountsDto(accountsDto);
         return customerDto;
+    }
+
+    @Override
+    public boolean updateAccount(CustomerDto customerDto) {
+        boolean isUpdated = false;
+        AccountsDto accountsDto = customerDto.getAccountsDto();
+        //since accoountnumber is the PK for Accounts table we are not allowing client to change account number by doing the following check
+        //also we are using it as PK to get the Customer whose detail needs to be changes
+        if(accountsDto!=null){
+            Accounts accounts = accountsRepository.findById(accountsDto.getAccountNumber()).orElseThrow(
+                    ()-> new ResourceNotFoundException("Account","AccountNumber",accountsDto.getAccountType().toString())
+            );
+            AccountsMapper.convertDtoToEntity(accountsDto, accounts);
+            accounts=accountsRepository.save(accounts);
+
+            Long customerId = accounts.getCustomerId();
+            Customer customer = customerRepository.findById(customerId).orElseThrow(
+                    ()-> new ResourceNotFoundException("Customer","customerId",customerId.toString())
+            );
+            CustomerMapper.convertDtoToEntity(customerDto, customer);
+            customerRepository.save(customer);
+            isUpdated = true;
+        }
+        return isUpdated;
     }
 
     /***

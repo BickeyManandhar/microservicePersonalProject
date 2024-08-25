@@ -34,4 +34,12 @@ public class AccountController {
                 .body(customerDto);
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<ResponseDto> updateAccount(@RequestBody CustomerDto customerDto){
+        accountService.updateAccount(customerDto);
+        return ResponseEntity
+                .status(HttpStatus.OK) //this goes to header
+                .body(new ResponseDto(AccountsConstants.MESSAGE_200,AccountsConstants.MESSAGE_200));
+    }
+
 }

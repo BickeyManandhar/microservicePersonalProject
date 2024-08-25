@@ -1,7 +1,7 @@
 package com.personal.project.accounts.service;
 
-import com.personal.project.accounts.dto.CustomerAndAccountDto;
 import com.personal.project.accounts.dto.CustomerDto;
+import com.personal.project.accounts.dto.ResponseDto;
 
 public interface IAccountService {
     /***
@@ -11,4 +11,6 @@ public interface IAccountService {
     void createAccount(CustomerDto customerDto);
 
     CustomerDto getAccountByMobileNumber(String mobileNumber);
+
+    boolean updateAccount(CustomerDto customerDto);
 }
