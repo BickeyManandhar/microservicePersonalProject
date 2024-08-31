@@ -49,7 +49,7 @@ public class AccountController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<ResponseDto> deleteAccount(@RequestBody String mobileNumber){
+    public ResponseEntity<ResponseDto> deleteAccount(@RequestParam String mobileNumber){
         boolean isDeleted= accountService.deleteAccount(mobileNumber);
         if(isDeleted){
             return ResponseEntity
