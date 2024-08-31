@@ -16,7 +16,7 @@ public class Accounts extends  BaseEntity{
 
     @Id
     @Column(name="account_number")
-    private Long accountNumber; //I will write separate login to generate account number
+    private Long accountNumber; //I will write separate logic to generate account number (written in AccountServiceImpl as method createNewAccountEntity)
 
     @Column(name="account_type")
     private String accountType;
