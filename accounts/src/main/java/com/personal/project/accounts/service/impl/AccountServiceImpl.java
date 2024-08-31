@@ -2,9 +2,7 @@ package com.personal.project.accounts.service.impl;
 
 import com.personal.project.accounts.constants.AccountsConstants;
 import com.personal.project.accounts.dto.AccountsDto;
-import com.personal.project.accounts.dto.CustomerAndAccountDto;
 import com.personal.project.accounts.dto.CustomerDto;
-import com.personal.project.accounts.dto.ResponseDto;
 import com.personal.project.accounts.entity.Accounts;
 import com.personal.project.accounts.entity.Customer;
 import com.personal.project.accounts.exception.CustomerAlreadyExistException;
@@ -17,7 +15,6 @@ import com.personal.project.accounts.service.IAccountService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Random;
 
@@ -39,8 +36,8 @@ public class AccountServiceImpl implements IAccountService {
         if(optionalCustomer.isPresent()){
             throw new CustomerAlreadyExistException("Customer already registered with given mobile number : "+customerDto.getMobileNumber());
         }
-        customer.setCreatedAt(LocalDateTime.now());
-        customer.setCreatedBy("Anonymous");
+        //customer.setCreatedAt(LocalDateTime.now()); //no need, as we added some annotations and Spring will handle it now
+        //customer.setCreatedBy("Anonymous"); //no need, as we added some annotations and Spring will handle it now
         Customer savedCustomer= customerRepository.save(customer);
         accountsRepository.save(createNewAccountEntity(savedCustomer));
     }
@@ -134,8 +131,8 @@ public class AccountServiceImpl implements IAccountService {
         newAccount.setAccountNumber(randomAccountNumber);
         newAccount.setAccountType(AccountsConstants.SAVINGS);
         newAccount.setBranchAddress(AccountsConstants.ADDRESS);
-        newAccount.setCreatedAt(LocalDateTime.now());
-        newAccount.setCreatedBy("Anonymous");
+        //newAccount.setCreatedAt(LocalDateTime.now()); //no need, as we added some annotations and Spring will handle it now
+        //newAccount.setCreatedBy("Anonymous");//no need, as we added some annotations and Spring will handle it now
         return newAccount;
     }
 }

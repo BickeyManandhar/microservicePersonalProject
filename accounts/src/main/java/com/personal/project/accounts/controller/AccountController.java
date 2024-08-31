@@ -1,7 +1,6 @@
 package com.personal.project.accounts.controller;
 
 import com.personal.project.accounts.constants.AccountsConstants;
-import com.personal.project.accounts.dto.CustomerAndAccountDto;
 import com.personal.project.accounts.dto.CustomerDto;
 import com.personal.project.accounts.dto.ResponseDto;
 import com.personal.project.accounts.service.IAccountService;
