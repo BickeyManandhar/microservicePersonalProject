@@ -10,6 +10,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
+/*
+//These are only required if we have not created these packages inside the main package
+@ComponentScans({@ComponentScan("com.personal.project.accounts.controller")})
+@EnableJpaRepositories("com.personal.project.accounts.repository")
+@EntityScan("com.personal.project.accounts.entity")
+*/
 @EnableJpaAuditing(auditorAwareRef = "auditAwareImpl") //passing the AuditAwareImpl bean
 @OpenAPIDefinition(
         info = @Info(
