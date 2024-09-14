@@ -16,7 +16,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaRepositories("com.personal.project.accounts.repository")
 @EntityScan("com.personal.project.accounts.entity")
 */
-@EnableJpaAuditing(auditorAwareRef = "auditAwareImpl") //passing the AuditAwareImpl bean
+@EnableJpaAuditing(auditorAwareRef = "auditAwareImplAccounts") //passing the AuditAwareImpl bean
 @OpenAPIDefinition(
         info = @Info(
                 title = "Accounts microservice REST API Documentation",
