@@ -11,6 +11,8 @@
 	<groupId>com.personal.project</groupId>
 	<artifactId>accounts</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<!--telling maven that I want to package this app as a jar. we will use this for docker-->
+	<packaging>jar</packaging>
 	<name>accounts</name>
 	<description>Microservice for Accounts </description>
 	<url/>
@@ -78,6 +80,7 @@
 
 	<build>
 		<plugins>
+			<!-- Spring Boot Maven Plugin for running the application like-> mvn spring-boot:run -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
