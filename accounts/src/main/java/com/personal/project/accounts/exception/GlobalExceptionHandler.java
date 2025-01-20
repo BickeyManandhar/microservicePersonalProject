@@ -47,13 +47,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler { //e
         return new ResponseEntity<>(errorResponseDto, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(CustomerAlreadyExistException.class)
-    public ResponseEntity<ErrorResponseDto> handleCustomerAlreadyExistsException(CustomerAlreadyExistException customerAlreadyExistException, WebRequest webRequest) {
-        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
-                webRequest.getDescription(false), //choosing not to include client info like IP address
-                HttpStatus.BAD_REQUEST,
-                customerAlreadyExistException.getMessage(),
-                LocalDateTime.now()
+        @ExceptionHandler(CustomerAlreadyExistException.class)
+        public ResponseEntity<ErrorResponseDto> handleCustomerAlreadyExistsException(CustomerAlreadyExistException customerAlreadyExistException, WebRequest webRequest) {
+            ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+                    webRequest.getDescription(false), //choosing not to include client info like IP address
+                    HttpStatus.BAD_REQUEST,
+                    customerAlreadyExistException.getMessage(),
+                    LocalDateTime.now()
         );
         return new ResponseEntity<>(errorResponseDto, HttpStatus.BAD_REQUEST);
     }
