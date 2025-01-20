@@ -1,0 +1,42 @@
+#we can create this file in any project module we have, i chose to do it under accounts
+#to run this file we use command: docker compose up -d
+services:
+  accounts:
+    image: "bickey007/accounts:v1"
+    container_name: "accounts-ms-container"
+    ports:
+      - "8080:8081"
+#      8080 is the port on your host machine (where you make API calls, e.g., Postman).
+#      8081 is the port on the container (where your application runs).
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    networks:
+      - bickeyNetwork
+  cards:
+    image: "bickey007/cards:v1"
+    container_name: "cards-ms-container"
+    ports:
+      - "9000:9000"
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    networks:
+      - bickeyNetwork
+  loans:
+    image: "bickey007/loans:v1"
+    container_name: "loans-ms-container"
+    ports:
+      - "8090:8090"
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    networks:
+      - bickeyNetwork
+#if our microservice needs to talk to each other, we need to create a network (example bickeyNetwork) like below, and assign it to each app like above
+networks:
+  bickeyNetwork:
+    driver: "bridge"

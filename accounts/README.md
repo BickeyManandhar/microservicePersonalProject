@@ -25,4 +25,6 @@ docker image push docker.io/bickey007/accounts:v1
 **To pull the image:**
 docker pull docker.io/bickey007/accounts:v1
 
+**To define and run multiple docker applications, we use Docker Compose:**
+check docker-compose.yml inside accounts
 
