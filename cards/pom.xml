@@ -11,6 +11,7 @@
 	<groupId>com.personal.project</groupId>
 	<artifactId>cards</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>cards</name>
 	<description>Microservice for Cards</description>
 	<url/>
@@ -78,6 +79,22 @@
 
 	<build>
 		<plugins>
+<!--			plugin to use google container tool / jib-->
+<!--			https://github.com/GoogleContainerTools/jib/tree/master/jib-maven-plugin-->
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+<!--				new version is having issue to create the image -->
+				<version>3.3.2</version>
+				<configuration>
+					<to>
+						<!--						docker_account_username/name_you_want_to_give:version_or_tag_name-->
+						<!--						need to run commad below to build docker image using this plugin-->
+						<!--						mvn compile jib:dockerBuild-->
+						<image>bickey007/${project.artifactId}:v1</image>
+					</to>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
