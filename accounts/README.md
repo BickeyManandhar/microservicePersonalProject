@@ -16,3 +16,13 @@ Along with @ExceptionHandler, this can be used to handle exceptions globally ins
 **RequestEntity<T>** : Allow developers to receive the request body, header in a HTTP request.
 
 **@RequestHeader** and **@RequestBody** : is used to receive the request body and header individually.
+
+
+**Pushing docker image created in the local to remote docker hub:**
+docker image push docker.io/user_name/project_name:tag
+docker image push docker.io/bickey007/accounts:v1
+
+**To pull the image:**
+docker pull docker.io/bickey007/accounts:v1
+
+
