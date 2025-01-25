@@ -1,6 +1,7 @@
 package com.personal.project.accounts.controller;
 
 import com.personal.project.accounts.constants.AccountsConstants;
+import com.personal.project.accounts.dto.AccountsContactInfoDto;
 import com.personal.project.accounts.dto.CustomerDto;
 import com.personal.project.accounts.dto.ErrorResponseDto;
 import com.personal.project.accounts.dto.ResponseDto;
@@ -15,6 +16,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
         description = "CRUD REST APIs in my personal Bank Project to CREATE, RETRIEVE, UPDATE and DELETE account details. "
 )
 @RestController
+@EnableConfigurationProperties(value = {AccountsContactInfoDto.class}) //this is the dto class to fetch application properties value
 @RequestMapping(path = "/api/v1", produces = {MediaType.APPLICATION_JSON_VALUE})
 //@AllArgsConstructor //there is only one constructor created by this, so no @Autowired required
 @Validated
@@ -43,6 +46,9 @@ public class AccountController {
 
     @Autowired
     private Environment environment; //second approach to fetch application properties
+
+    @Autowired
+    private AccountsContactInfoDto accountsContactInfoDto; //third approach to fetch application properties; check the commit to see all the requirements and annotation used
 
     @Operation(
             summary = "Create Account REST API",
@@ -224,6 +230,30 @@ public class AccountController {
         return  ResponseEntity
                 .status(HttpStatus.OK)
                 .body(environment.getProperty("JAVA_HOME"));
+    }
+
+    @Operation(
+            summary = "Get accounts service info",
+            description = "REST API to fetch accounts service info."
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK."
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error.",
+                    content= @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    })
+    @GetMapping("accounts-service-info")
+    public ResponseEntity<AccountsContactInfoDto> getAccountsServiceInfo(){
+        return  ResponseEntity
+                .status(HttpStatus.OK)
+                .body(accountsContactInfoDto);
     }
 
 }
