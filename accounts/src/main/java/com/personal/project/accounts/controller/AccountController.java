@@ -5,7 +5,6 @@ import com.personal.project.accounts.dto.CustomerDto;
 import com.personal.project.accounts.dto.ErrorResponseDto;
 import com.personal.project.accounts.dto.ResponseDto;
 import com.personal.project.accounts.service.IAccountService;
-import com.personal.project.accounts.service.impl.AccountServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -15,6 +14,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,11 +27,18 @@ import org.springframework.web.bind.annotation.*;
 )
 @RestController
 @RequestMapping(path = "/api/v1", produces = {MediaType.APPLICATION_JSON_VALUE})
-@AllArgsConstructor //there is only one constructor created by this, so no @Autowired required
+//@AllArgsConstructor //there is only one constructor created by this, so no @Autowired required
 @Validated
 public class AccountController {
 
-    private IAccountService accountService;
+    private final IAccountService accountService;
+
+    @Value("${build.version}")
+    private String buildVersion;
+
+    public AccountController(IAccountService accountService) {
+        this.accountService = accountService;
+    }
 
     @Operation(
             summary = "Create Account REST API",
@@ -165,6 +172,30 @@ public class AccountController {
                     .status(HttpStatus.EXPECTATION_FAILED) //this goes to header
                     .body(new ResponseDto(AccountsConstants.STATUS_417, AccountsConstants.MESSAGE_417_DELETE));
         }
+    }
+
+    @Operation(
+            summary = "Get build version",
+            description = "REST API to fetch build version."
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK."
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error.",
+                    content= @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    })
+    @GetMapping("build-version")
+    public ResponseEntity<String> getBuildVersion(){
+        return  ResponseEntity
+                .status(HttpStatus.OK)
+                .body(buildVersion);
     }
 
 }
