@@ -28,3 +28,15 @@ docker pull docker.io/bickey007/accounts:v1
 **To define and run multiple docker applications, we use Docker Compose:**
 check docker-compose.yml inside accounts
 
+**To run the services in the docker-compose.yml**
+docker compose up -d
+
+**To stop and delete the container**
+docker compose down
+
+**To stop and not delete**
+docker compose stop
+
+**To start the stopped service that was not deleted**
+docker compose start
+
