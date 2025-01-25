@@ -16,6 +16,13 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  config:
+    import: #need to import the created profile
+      - "application_qa.yml"
+      - "application_prod.yml"
+  profiles:
+    active:
+      - "qa" #activating qa profile
 
 build:
   version: "1.0"
@@ -23,6 +30,7 @@ build:
 #  this will be prefix for AccountsContactInfoDto
 accounts:
   message: "Welcome to my banking project."
+  env: "Default"
   contactDetails:
     name: "Bickey Manandhar - Developer"
     email: "xyz@gmail.com"

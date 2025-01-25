@@ -6,6 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 @ConfigurationProperties(prefix = "accounts")
-public record AccountsContactInfoDto(String message, Map<String, String> contactDetails, List<String> onCallSupport) {
+public record AccountsContactInfoDto(String message, Map<String, String> contactDetails,String env, List<String> onCallSupport) {
     //fields in record are final so there will only be getters no setters
 }
