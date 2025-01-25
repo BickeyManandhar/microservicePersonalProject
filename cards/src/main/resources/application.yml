@@ -16,6 +16,27 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  config:
+    import: #need to import the created profile
+      - "application_qa.yml"
+      - "application_prod.yml"
+  profiles:
+    active:
+      - "qa" #activating qa profile, this hardcoded value can be overridden by command-line arguments or JVM or environment options methods to have dynamic value based on the env we are deploying
+
+build:
+  version: "1.0"
+
+#  this will be prefix for CardsContactInfoDto
+cards:
+  message: "Welcome to my banking project."
+  env: "Default"
+  contactDetails:
+    name: "Bickey Manandhar - Developer"
+    email: "xyz@gmail.com"
+  onCallSupport:
+    - (123)456-7891
+    - (234)567-8910
 
 
 

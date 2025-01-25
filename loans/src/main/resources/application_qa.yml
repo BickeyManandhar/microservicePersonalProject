@@ -1,0 +1,18 @@
+spring:
+  config:
+    activate:
+      on-profile: "qa" #naming the profile
+
+build:
+  version: "2.0"
+
+#  this will be prefix for LoansContactInfoDto
+loans:
+  message: "Welcome to the QA env."
+  env: "QA"
+  contactDetails:
+    name: "Bickey Manandhar - QA Lead"
+    email: "xyz@gmail.com"
+  onCallSupport:
+    - (723)456-7891
+    - (834)567-8910

@@ -22,7 +22,7 @@ spring:
       - "application_prod.yml"
   profiles:
     active:
-      - "qa" #activating qa profile
+      - "qa" #activating qa profile, this hardcoded value can be overridden by command-line arguments or JVM or environment options methods to have dynamic value based on the env we are deploying
 
 build:
   version: "1.0"

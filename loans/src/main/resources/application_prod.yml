@@ -1,0 +1,18 @@
+spring:
+  config:
+    activate:
+      on-profile: "prod" #naming the profile
+
+build:
+  version: "3.0"
+
+#  this will be prefix for LoansContactInfoDto
+loans:
+  message: "Welcome to the PROD Env."
+  env: "PROD"
+  contactDetails:
+    name: "Bickey Manandhar - Production Lead"
+    email: "xyz@gmail.com"
+  onCallSupport:
+    - (923)456-7891
+    - (434)567-8910
